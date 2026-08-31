@@ -1,0 +1,12 @@
+﻿@model ActivityEditViewModel
+
+<h1>Edit Activity</h1>
+
+<form asp-action="Edit" method="post">
+    <div>
+        <label asp-for="Title" class="form-label">Title</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-outline-warning btn-lg">Edit</button>
+</form>

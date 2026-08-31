@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="StaskoTravel.Core/StaskoTravel.Core.csproj" />
+  <Project Path="StaskoTravel.Data/StaskoTravel.DataAccess.csproj" />
+  <Project Path="StaskoTravel.Models/StaskoTravel.Models.csproj" />
+  <Project Path="StaskoTravel.ViewModels/StaskoTravel.ViewModels.csproj" />
+  <Project Path="StaskoTravel/StaskoTravel.csproj" />
+</Solution>

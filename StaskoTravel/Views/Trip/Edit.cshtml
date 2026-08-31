@@ -1,0 +1,23 @@
+﻿@model TripEditViewModel
+
+<h1>Edit Trip</h1>
+
+<form asp-action="Edit" method="post">
+    <div>
+        <label asp-for="DestinationCity" class="form-label"></label>
+        <input type="text" asp-for="DestinationCity" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="TripCurrency" class="form-label"></label>
+        <input type="text" asp-for="TripCurrency" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="StartDate" class="form-label"></label>
+        <input type="date" asp-for="StartDate" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="EndDate" class="form-label"></label>
+        <input type="date" asp-for="EndDate" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-outline-warning btn-lg">Edit</button>
+</form>
