@@ -1,23 +1,61 @@
 ﻿@model TripEditViewModel
 
-<h1>Edit Trip</h1>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-warning text-dark text-center py-3">
+                    <h2 class="h4 mb-0 fw-bold">
+                        <i class="bi bi-pencil-square me-2"></i>Edit Trip
+                    </h2>
+                </div>
 
-<form asp-action="Edit" method="post">
-    <div>
-        <label asp-for="DestinationCity" class="form-label"></label>
-        <input type="text" asp-for="DestinationCity" class="form-control" />
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="DestinationCity" class="form-control" placeholder="Rome" autocomplete="off" autofocus />
+                            <label asp-for="DestinationCity" class="text-muted">Destination City</label>
+                            <span asp-validation-for="DestinationCity" class="text-danger small ms-1"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="TripCurrency" class="form-control" placeholder="EUR" autocomplete="off" />
+                            <label asp-for="TripCurrency" class="text-muted">Currency (e.g., EUR, USD)</label>
+                            <span asp-validation-for="TripCurrency" class="text-danger small ms-1"></span>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="StartDate" type="date" class="form-control" placeholder="Start Date" />
+                                    <label asp-for="StartDate" class="text-muted">Start Date</label>
+                                    <span asp-validation-for="StartDate" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="EndDate" type="date" class="form-control" placeholder="End Date" />
+                                    <label asp-for="EndDate" class="text-muted">End Date</label>
+                                    <span asp-validation-for="EndDate" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4 pt-2">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4 fw-bold">Cancel</a>
+                            <button type="submit" class="btn btn-warning text-dark px-4 fw-bold">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="TripCurrency" class="form-label"></label>
-        <input type="text" asp-for="TripCurrency" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="StartDate" class="form-label"></label>
-        <input type="date" asp-for="StartDate" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="EndDate" class="form-label"></label>
-        <input type="date" asp-for="EndDate" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-outline-warning btn-lg">Edit</button>
-</form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

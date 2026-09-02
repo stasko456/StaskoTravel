@@ -51,7 +51,7 @@ namespace StaskoTravel.Core.Service
             return activity;
         }
 
-        public async Task<IEnumerable<ActivityIndexViewModel>> GetFilteredActivitiesAsync(string title, int pageNumber = 1, int pageSize = 5)
+        public async Task<IEnumerable<ActivityIndexViewModel>> GetFilteredActivitiesAsync(string title, int pageNumber = 1, int pageSize = 6)
         {
             var query = activityRepo.GetAllAttached();
 
@@ -70,7 +70,17 @@ namespace StaskoTravel.Core.Service
                 .ToListAsync();
         }
 
-        public async Task<int> GetTotalPagesAsync(int pageSize = 5)
+        public async Task<IEnumerable<ActivityIndexViewModel>> GetFirst5FilteredAsync(string title)
+        {
+            return await activityRepo.GetAllAttached()
+                .Select(a => new ActivityIndexViewModel
+                {
+                    Id = a.Id,
+                    Title = a.Title,
+                }).ToListAsync();
+        }
+
+        public async Task<int> GetTotalPagesAsync(int pageSize = 6)
         {
             int totalActivities = await activityRepo.GetAllAttached().CountAsync();
 

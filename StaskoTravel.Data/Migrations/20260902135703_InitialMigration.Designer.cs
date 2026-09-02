@@ -12,7 +12,7 @@ using StaskoTravel.DataAccess;
 namespace StaskoTravel.DataAccess.Migrations
 {
     [DbContext(typeof(StaskoTravelDbContext))]
-    [Migration("20260831133745_InitialMigration")]
+    [Migration("20260902135703_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -206,8 +206,7 @@ namespace StaskoTravel.DataAccess.Migrations
 
             modelBuilder.Entity("StaskoTravel.Models.Entities.TripActivity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("TripId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ActivityId")
@@ -216,17 +215,12 @@ namespace StaskoTravel.DataAccess.Migrations
                     b.Property<decimal>("EstimatedCost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateOnly?>("ScheduledDate")
+                    b.Property<DateOnly>("ScheduledDate")
                         .HasColumnType("date");
 
-                    b.Property<Guid>("TripId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
+                    b.HasKey("TripId", "ActivityId");
 
                     b.HasIndex("ActivityId");
-
-                    b.HasIndex("TripId");
 
                     b.ToTable("TripActivity");
                 });

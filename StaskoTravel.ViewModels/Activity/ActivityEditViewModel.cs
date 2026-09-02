@@ -12,7 +12,7 @@ namespace StaskoTravel.ViewModels.Activity
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Title is required!")]
-        [StringLength(150, MinimumLength = 5, ErrorMessage = "Title has to be between 5 and 100 characters long!")]
+        [StringLength(150, ErrorMessage = "Title can be 150 characters long!")]
         public string Title { get; set; } = null!;
     }
 }

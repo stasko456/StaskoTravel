@@ -9,7 +9,7 @@ namespace StaskoTravel.Core.IService
 {
     public interface IActivityService
     {
-        Task<IEnumerable<ActivityIndexViewModel>> GetFilteredActivitiesAsync(string title, int pageNumber = 1, int pageSize = 5);
+        Task<IEnumerable<ActivityIndexViewModel>> GetFilteredActivitiesAsync(string title, int pageNumber = 1, int pageSize = 6);
 
         Task<ActivityEditViewModel?> GetActivityByIdAsync(Guid id);
 
@@ -19,6 +19,8 @@ namespace StaskoTravel.Core.IService
 
         Task RemoveActivityAsync(Guid id);
 
-        Task<int> GetTotalPagesAsync(int pageSize = 5);
+        Task<int> GetTotalPagesAsync(int pageSize = 6);
+
+        Task<IEnumerable<ActivityIndexViewModel>> GetFirst5FilteredAsync(string title);
     }
 }

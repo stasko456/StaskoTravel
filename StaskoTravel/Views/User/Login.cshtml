@@ -1,17 +1,46 @@
 ﻿@model LoginViewModel
 
-<h1>Login</h1>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h2 class="h4 mb-0 fw-bold">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Welcome Back
+                    </h2>
+                </div>
 
-<form asp-action="Login" method="post">
-    <div>
-        <label asp-for="UserName" class="form-label">Username</label>
-        <input type="text" asp-for="UserName" class="form-control"/>
+                <div class="card-body p-4">
+                    <form asp-action="Login" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="form-floating mb-3">
+                            <input asp-for="UserName" class="form-control" placeholder="Username" autocomplete="username" autofocus />
+                            <label asp-for="UserName" class="text-muted">Username</label>
+                            <span asp-validation-for="UserName" class="text-danger small ms-1"></span>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Password" autocomplete="current-password" />
+                            <label asp-for="Password" class="text-muted">Password</label>
+                            <span asp-validation-for="Password" class="text-danger small ms-1"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 mb-3">
+                            Login
+                        </button>
+
+                        <div class="text-center mt-3 pt-2 border-top">
+                            <span class="text-muted small">Don't have an account?</span>
+                            <a asp-action="Register" class="text-primary fw-bold ms-1 text-decoration-none">Register here</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div>
-        <label asp-for="Password" class="form-label">Password</label>
-        <input type="password" asp-for="Password" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-lg btn-outline-success">Login</button>
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

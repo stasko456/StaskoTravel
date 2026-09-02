@@ -1,37 +1,88 @@
 ﻿@model RegisterViewModel
 
-<h1>Register</h1>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h2 class="h4 mb-0 fw-bold">
+                        <i class="bi bi-person-plus me-2"></i>Create an Account
+                    </h2>
+                </div>
 
-<form asp-action="Register" method="post">
-    <div>
-        <label asp-for="FirstName" class="form-label">First Name</label>
-        <input type="text" asp-for="FirstName" class="form-control" />
+                <div class="card-body p-4">
+                    <form asp-action="Register" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <!-- Name Fields Row -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="FirstName" class="form-control" placeholder="John" autocomplete="given-name" autofocus />
+                                    <label asp-for="FirstName" class="text-muted">First Name</label>
+                                    <span asp-validation-for="FirstName" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="LastName" class="form-control" placeholder="Doe" autocomplete="family-name" />
+                                    <label asp-for="LastName" class="text-muted">Last Name</label>
+                                    <span asp-validation-for="LastName" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Details Row -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="UserName" class="form-control" placeholder="username" autocomplete="username" />
+                                    <label asp-for="UserName" class="text-muted">Username</label>
+                                    <span asp-validation-for="UserName" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="EmailAddress" type="email" class="form-control" placeholder="name@example.com" autocomplete="email" />
+                                    <label asp-for="EmailAddress" class="text-muted">Email Address</label>
+                                    <span asp-validation-for="EmailAddress" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password Row -->
+                        <div class="row g-2 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="Password" type="password" class="form-control" placeholder="Password" autocomplete="new-password" />
+                                    <label asp-for="Password" class="text-muted">Password</label>
+                                    <span asp-validation-for="Password" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password" autocomplete="new-password" />
+                                    <label asp-for="ConfirmPassword" class="text-muted">Confirm Password</label>
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger small ms-1"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 fw-bold py-2 mb-3">
+                            Register
+                        </button>
+
+                        <div class="text-center mt-3 pt-2 border-top">
+                            <span class="text-muted small">Already have an account?</span>
+                            <a asp-action="Login" class="text-primary fw-bold ms-1 text-decoration-none">Login here</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div>
-        <label asp-for="LastName" class="form-label">Last Name</label>
-        <input type="text" asp-for="LastName" class="form-control"/>
-    </div>
-
-    <div>
-        <label asp-for="UserName" class="form-label">UserName</label>
-        <input type="text" asp-for="UserName" class="form-control" />
-    </div>
-
-    <div>
-        <label asp-for="EmailAddress" class="form-label">Email Address</label>
-        <input type="email" asp-for="EmailAddress" class="form-control" />
-    </div>
-
-    <div>
-        <label asp-for="Password" class="form-label">Password</label>
-        <input type="password" asp-for="Password" class="form-control"/>
-    </div>
-
-    <div>
-        <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
-        <input type="password" asp-for="ConfirmPassword" class="form-control"/>
-    </div>
-
-    <button type="submit" class="btn btn-lg btn-outline-success">Register</button>
-</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
