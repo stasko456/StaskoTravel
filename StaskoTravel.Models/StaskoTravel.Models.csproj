@@ -16,4 +16,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StaskoTravel.ViewModels\StaskoTravel.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

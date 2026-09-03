@@ -32,7 +32,7 @@ namespace StaskoTravel.ViewModels.User
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
 
-        [Required(ErrorMessage = "Password conformation is required!")]
+        [Required(ErrorMessage = "Password confirmation is required!")]
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; } = null!;
