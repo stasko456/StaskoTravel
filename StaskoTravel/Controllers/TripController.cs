@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Query;
 using StaskoTravel.Core.IService;
@@ -14,12 +15,15 @@ namespace StaskoTravel.Controllers
     {
         private readonly ITripService tripService;
         private readonly ILogger<TripController> logger;
+        private readonly UserManager<User> userManager;
 
         public TripController(ITripService _tripService,
-                              ILogger<TripController> _logger)
+                              ILogger<TripController> _logger,
+                              UserManager<User> _userManager)
         {
             this.tripService = _tripService;
             this.logger = _logger;
+            this.userManager = _userManager;
         }
 
         [HttpGet]
@@ -128,9 +132,12 @@ namespace StaskoTravel.Controllers
         [Authorize(Policy = "User")]
         public async Task<IActionResult> Details(Guid id)
         {
+            var user = await userManager.GetUserAsync(User);
+
             try
             {
                 var trip = await tripService.GetTripWithActivitiesAsync(id);
+                trip.HomeCurrency = user.HomeCurrency;
                 return View(trip);
             }
             catch (NullReferenceException ex)

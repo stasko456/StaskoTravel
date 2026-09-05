@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace StaskoTravel.Models.Entities
 {
-    [PrimaryKey(nameof(TripId), nameof(ActivityId))]
     public class TripActivity
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Required]
         [ForeignKey(nameof(Trip))]
         public Guid TripId { get; set; }

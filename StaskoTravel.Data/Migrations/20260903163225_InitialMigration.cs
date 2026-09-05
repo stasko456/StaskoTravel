@@ -197,6 +197,7 @@ namespace StaskoTravel.DataAccess.Migrations
                 name: "TripActivity",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TripId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ActivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ScheduledDate = table.Column<DateOnly>(type: "date", nullable: false),
@@ -204,7 +205,7 @@ namespace StaskoTravel.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TripActivity", x => new { x.TripId, x.ActivityId });
+                    table.PrimaryKey("PK_TripActivity", x => x.Id);
                     table.ForeignKey(
                         name: "FK_TripActivity_Activities_ActivityId",
                         column: x => x.ActivityId,
@@ -262,6 +263,11 @@ namespace StaskoTravel.DataAccess.Migrations
                 name: "IX_TripActivity_ActivityId",
                 table: "TripActivity",
                 column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripActivity_TripId",
+                table: "TripActivity",
+                column: "TripId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trips_UserId",

@@ -17,6 +17,8 @@ namespace StaskoTravel.ViewModels.Trip
 
         public string TripCurrency { get; set; } = null!;
 
+        public string HomeCurrency { get; set; } = null!;
+
         public DateOnly StartDate { get; set; }
 
         public DateOnly EndDate { get; set; }

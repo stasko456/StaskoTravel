@@ -73,11 +73,13 @@ namespace StaskoTravel.Core.Service
         public async Task<IEnumerable<ActivityIndexViewModel>> GetFirst5FilteredAsync(string title)
         {
             return await activityRepo.GetAllAttached()
+                .Where(a => EF.Functions.Like(a.Title, $"%{title}%"))
                 .Select(a => new ActivityIndexViewModel
                 {
                     Id = a.Id,
                     Title = a.Title,
-                }).ToListAsync();
+                }).Take(5)
+                .ToListAsync();
         }
 
         public async Task<int> GetTotalPagesAsync(int pageSize = 6)

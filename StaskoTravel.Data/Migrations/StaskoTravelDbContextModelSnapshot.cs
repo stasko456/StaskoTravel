@@ -203,7 +203,8 @@ namespace StaskoTravel.DataAccess.Migrations
 
             modelBuilder.Entity("StaskoTravel.Models.Entities.TripActivity", b =>
                 {
-                    b.Property<Guid>("TripId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ActivityId")
@@ -215,9 +216,14 @@ namespace StaskoTravel.DataAccess.Migrations
                     b.Property<DateOnly>("ScheduledDate")
                         .HasColumnType("date");
 
-                    b.HasKey("TripId", "ActivityId");
+                    b.Property<Guid>("TripId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ActivityId");
+
+                    b.HasIndex("TripId");
 
                     b.ToTable("TripActivity");
                 });
