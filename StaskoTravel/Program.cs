@@ -5,6 +5,7 @@ using StaskoTravel.Core.IService;
 using StaskoTravel.Core.Service;
 using StaskoTravel.DataAccess;
 using StaskoTravel.DataAccess.Repository;
+using StaskoTravel.Factories;
 using StaskoTravel.Models.Entities;
 
 namespace StaskoTravel
@@ -29,6 +30,8 @@ namespace StaskoTravel
                 options.Password.RequiredLength = 5;
             }).AddEntityFrameworkStores<StaskoTravelDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.Services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsPrincipalFactory>();
 
             builder.Services.AddAuthorization(options =>
             {

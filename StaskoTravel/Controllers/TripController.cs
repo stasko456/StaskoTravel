@@ -15,15 +15,12 @@ namespace StaskoTravel.Controllers
     {
         private readonly ITripService tripService;
         private readonly ILogger<TripController> logger;
-        private readonly UserManager<User> userManager;
 
         public TripController(ITripService _tripService,
-                              ILogger<TripController> _logger,
-                              UserManager<User> _userManager)
+                              ILogger<TripController> _logger)
         {
             this.tripService = _tripService;
             this.logger = _logger;
-            this.userManager = _userManager;
         }
 
         [HttpGet]
@@ -52,6 +49,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> Create(TripCreateViewModel vm)
         {
@@ -87,6 +85,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> Edit(TripEditViewModel vm)
         {
@@ -108,6 +107,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -132,12 +132,9 @@ namespace StaskoTravel.Controllers
         [Authorize(Policy = "User")]
         public async Task<IActionResult> Details(Guid id)
         {
-            var user = await userManager.GetUserAsync(User);
-
             try
             {
                 var trip = await tripService.GetTripWithActivitiesAsync(id);
-                trip.HomeCurrency = user.HomeCurrency;
                 return View(trip);
             }
             catch (NullReferenceException ex)
@@ -148,11 +145,13 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "User")]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> AddActivityToTrip(Guid tripId, Guid activityId)
         {
             if (tripId == Guid.Empty || activityId == Guid.Empty)
             {
-                return BadRequest();
+                return RedirectToAction("Details", "Trip", new { id = tripId });
             }
 
             try
@@ -168,6 +167,8 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "User")]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> RemoveActivityFromTrip(Guid tripId, Guid activityId)
         {
             if (tripId == Guid.Empty || activityId == Guid.Empty)
@@ -188,6 +189,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "User")]
         public async Task<IActionResult> CreateTripActivity(Guid tripId, Guid activityId)
         {
             if (tripId == Guid.Empty || activityId == Guid.Empty)
@@ -208,6 +210,8 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "User")]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> CreateTripActivity(TripActivityCreateViewModel vm)
         {
             if (!ModelState.IsValid)

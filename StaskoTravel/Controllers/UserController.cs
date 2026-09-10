@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query;
 using StaskoTravel.Models.Entities;
@@ -33,6 +36,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -75,6 +79,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -105,6 +110,43 @@ namespace StaskoTravel.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login", "User");
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "User")]
+        public async Task<IActionResult> Edit()
+        {
+            var user = await userManager.GetUserAsync(User);
+            return View(new UserEditViewModel() { HomeCurrecny = user!.HomeCurrency});
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "User")]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(UserEditViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            var user = await userManager.GetUserAsync(User);
+
+            user!.HomeCurrency = vm.HomeCurrecny;
+
+            var result = await userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                foreach (IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            await signInManager.RefreshSignInAsync(user);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -49,6 +49,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Policy = "AdminOrUser")]
         public async Task<IActionResult> Create(ActivityCreateViewModel vm)
         {
@@ -62,7 +63,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "AdminOrUser")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
             if (id == Guid.Empty)
@@ -83,7 +84,8 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "AdminOrUser")]
+        [AutoValidateAntiforgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(ActivityEditViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -104,6 +106,7 @@ namespace StaskoTravel.Controllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
